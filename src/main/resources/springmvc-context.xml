@@ -13,7 +13,6 @@
 
     <mvc:annotation-driven/>
 
-    <context:component-scan base-package="com.bridge.report"/>
     <mvc:default-servlet-handler />
 
     <mvc:resources mapping="/resources/**" location="classpath:static" />

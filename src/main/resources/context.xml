@@ -9,11 +9,13 @@
        http://www.springframework.org/schema/context/spring-context-3.0.xsd
     ">
 
+    <context:component-scan base-package="com.bridge.report"/>
+    <context:property-placeholder location="classpath:properties/*.properties" ignore-unresolvable="true"/>
+
     <import resource="classpath:ureport-console-context.xml"/>
 
-<!--
-    <context:component-scan base-package="com.bridge.report"/>
--->
+    <import resource="classpath:spring-task.xml"/>
+
 
     <bean id="propertyConfigurer" parent="ureport.props">
         <property name="location">
@@ -21,13 +23,13 @@
         </property>
     </bean>
 
-    <bean id="jdbcPlace" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <!--<bean id="jdbcPlace" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath:jdbc.properties</value>
             </list>
         </property>
-    </bean>
+    </bean>-->
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="${jdbc.driver}"/>
