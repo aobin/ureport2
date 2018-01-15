@@ -1,5 +1,8 @@
 package com.bridge.report.com.bridge.report.report;
 
+import org.springframework.stereotype.Component;
+
+@Component("HelloReport")
 public class HelloReport implements Runnable
 {
     @Override

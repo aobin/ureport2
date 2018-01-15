@@ -1,6 +1,9 @@
 package com.bridge.report.tasks;
 
+import com.bridge.report.com.bridge.report.config.ApplicationContextProvider;
 import com.bridge.report.com.bridge.report.report.HelloReport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,28 +15,40 @@ import java.util.concurrent.Executors;
 public class ReportTasks
 {
 
-    public void sayHello()
+    @Autowired
+    private HelloReport helloReport;
+
+    private ApplicationContext applicationContext;
+
+    @Autowired
+    public ReportTasks(ApplicationContextProvider applicationContextProvider)
     {
-        new HelloReport().run();
+        this.applicationContext = applicationContextProvider.getContext();
     }
 
+    public void sayHello()
+    {
+        helloReport.run();
+    }
 
     public void retry()
     {
         System.out.println("==============retry begin==================");
 
         List<String> failedReportNameList = new ArrayList<>();
-        failedReportNameList.add("com.bridge.report.com.bridge.report.report.HelloReport");
+        failedReportNameList.add("HelloReport");
 
         ExecutorService executorService = Executors.newFixedThreadPool(failedReportNameList.size());
+
         try
         {
-            executorService.submit((Runnable) Class.forName(failedReportNameList.get(0)).newInstance());
+            executorService.submit((Runnable) applicationContext.getBean(failedReportNameList.get(0)));
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+
         executorService.shutdown();
         System.out.println("==============retry end==================");
 

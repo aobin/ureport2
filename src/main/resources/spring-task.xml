@@ -10,8 +10,8 @@
     <task:scheduler id="myScheduler" pool-size="${pool.size}"/>
 
     <task:scheduled-tasks scheduler="myScheduler">
-        <task:scheduled ref="reportTasks" method="sayHello" fixed-delay="5000" />
-        <task:scheduled ref="reportTasks" method="retry" fixed-delay="10000" />
+        <task:scheduled ref="reportTasks" method="sayHello" fixed-delay="3000" />
+        <task:scheduled ref="reportTasks" method="retry" fixed-delay="8000" />
     </task:scheduled-tasks>
 
 
